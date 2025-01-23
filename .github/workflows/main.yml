@@ -31,12 +31,12 @@ jobs:
 
     - name: NPM install
       run: |
-        cd API_Corrections
+        cd API_Corrections/
         npm install
 
     - name: Build .NET project and run tests
       run: |
-        cd CorrectionsAPI
+        cd CorrectionsAPI/
         dotnet build
         dotnet test
 
