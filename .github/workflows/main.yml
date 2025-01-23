@@ -36,6 +36,7 @@ jobs:
 
     - name: Build .NET project and run tests
       run: |
+        echo "$PWD"
         cd CorrectionsAPI/
         dotnet build
         dotnet test
