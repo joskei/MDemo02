@@ -36,8 +36,6 @@ jobs:
 
     - name: Build .NET project and run tests
       run: |
-        echo "$PWD"
-        ls
         cd CorrectionsApi/
         dotnet build
         dotnet test
@@ -55,6 +53,7 @@ jobs:
       run: |
         # Assuming dotnet test saves the spec as dotnet_openapi.json
         json2yaml dotnet_openapi.json > dotnet_openapi.yml
+        cat dotnet_openapi.yml
 
     - name: Run openapi-diff and save output
       id: run_diff
