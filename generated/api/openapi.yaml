@@ -1,0 +1,212 @@
+openapi: 3.0.0
+info:
+  title: SupervisedIndividuals Management
+  version: "1.0"
+servers:
+- description: Single server endpoint
+  url: https://mdemoutils.com
+paths:
+  /v1/supervisedindividuals:
+    get:
+      operationId: SupervisedIndividualAPI_listSupervisedIndividuals
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SupervisedIndividual'
+                type: array
+          description: The request has succeeded.
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The server cannot find the requested resource.
+      security:
+      - BearerAuth: []
+    post:
+      operationId: SupervisedIndividualAPI_createSupervisedIndividual
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupervisedIndividual'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisedIndividual'
+          description: The request has succeeded and a new resource has been created
+            as a result.
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisedIndividual'
+          description: "The request has been accepted for processing, but processing\
+            \ has not yet completed."
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The server could not understand the request due to invalid
+            syntax.
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Server error
+      security:
+      - BearerAuth: []
+  /v1/supervisedindividuals/{id}:
+    get:
+      operationId: SupervisedIndividualAPI_getSupervisedIndividualById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisedIndividual'
+          description: The request has succeeded.
+        "404":
+          description: The server cannot find the requested resource.
+      security:
+      - BearerAuth: []
+  /v2/supervisedindividuals:
+    get:
+      operationId: SupervisedIndividualAPIV2_listSupervisedIndividuals
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SupervisedIndividual'
+                type: array
+          description: The request has succeeded.
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The server cannot find the requested resource.
+      security:
+      - BearerAuth: []
+    post:
+      operationId: SupervisedIndividualAPIV2_createSupervisedIndividual
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupervisedIndividual'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisedIndividual'
+          description: The request has succeeded and a new resource has been created
+            as a result.
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisedIndividual'
+          description: "The request has been accepted for processing, but processing\
+            \ has not yet completed."
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The server could not understand the request due to invalid
+            syntax.
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Server error
+      security:
+      - BearerAuth: []
+  /v2/supervisedindividuals/{id}:
+    get:
+      operationId: SupervisedIndividualAPIV2_getSupervisedIndividualById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisedIndividual'
+          description: The request has succeeded.
+        "404":
+          description: The server cannot find the requested resource.
+      security:
+      - BearerAuth: []
+components:
+  schemas:
+    SupervisedIndividual:
+      example:
+        id: a3df40f3-7372-4811-b719-3ea9ad78b922
+        name: Joseph
+        email: j@b.com
+        dateOfJoining: 2001-01-01
+        dateOfBirth: 1978-01-01
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 20
+          type: string
+        email:
+          type: string
+        dateOfJoining:
+          format: date
+          type: string
+        dateOfBirth:
+          format: date
+          type: string
+      required:
+      - dateOfBirth
+      - dateOfJoining
+      - email
+      - id
+      - name
+      type: object
+    Versions:
+      enum:
+      - "1.0"
+      - "2.0"
+      type: string
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+

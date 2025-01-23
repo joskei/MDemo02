@@ -1,0 +1,69 @@
+name: 'Verify OpenAPI Specs'
+
+on: [push]
+
+jobs:
+  compare-openapi:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install TypeSpec CLI
+      run: npm install -g @typespec/compiler
+
+    - name: Install json2yaml
+      run: npm install -g json2yaml
+
+    - name: Install openapi-diff
+      run: npm install -g openapi-diff
+
+    - name: NPM install
+      run: |
+        cd API_Corrections
+        npm install
+
+    - name: Build .NET project and run tests
+      run: |
+        dotnet build
+        dotnet test
+
+    - name: Generate TypeSpec OpenAPI spec
+      run: |
+        cd API_Corrections/
+        tsp compile .
+
+    - name: Move generated OpenAPI spec to standard location
+      run: |
+        cp API_Corrections/tsp-output/"@typespec"/openapi3/openapi.1.0.yaml openapi.yaml
+
+    - name: Fetch .NET OpenAPI spec
+      run: |
+        # Assuming dotnet test saves the spec as dotnet_openapi.json
+        json2yaml dotnet_openapi.json > dotnet_openapi.yml
+
+    - name: Run openapi-diff and save output
+      id: run_diff
+      run: |
+        openapi-diff openapi.yaml dotnet_openapi.yml > diff_output.json
+
+    - name: Check for breaking differences
+      run: |
+        cat diff_output.json
+        if grep -q '"breakingDifferencesFound": false' diff_output.json; then
+          echo "No breaking differences found."
+        else
+          echo "Breaking differences found!" >&2
+          exit 1
+        fi
