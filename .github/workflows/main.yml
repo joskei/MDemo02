@@ -38,7 +38,7 @@ jobs:
       run: |
         echo "$PWD"
         ls
-        cd CorrectionsAPI/
+        cd CorrectionsApi/
         dotnet build
         dotnet test
 
