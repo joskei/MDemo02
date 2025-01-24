@@ -53,8 +53,7 @@ jobs:
     - name: Fetch .NET OpenAPI spec
       run: |
         # Assuming dotnet test saves the spec as dotnet_openapi.json
-        json2yaml tests/Test/dotnet_openapi.json > dotnet_openapi.yml
-        cat dotnet_openapi.yml
+        json2yaml tests/Test/dotnet_openapi.json > dotnet_openapi.yml        
 
     - name: Run openapi-diff and save output
       id: run_diff

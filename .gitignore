@@ -91,3 +91,6 @@ tests/Test/obj/Debug/net8.0/Test.GeneratedMSBuildEditorConfig.editorconfig
 tests/Test/obj/Debug/net8.0/Test.GlobalUsings.g.cs
 tests/Test/obj/Debug/net8.0/Test.sourcelink.json
 tests/Test/dotnet_openapi.json
+openapi.yaml
+diff_output.json
+dotnet_openapi.yml
