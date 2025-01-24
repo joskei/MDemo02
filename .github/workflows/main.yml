@@ -38,6 +38,7 @@ jobs:
       run: |
         cd CorrectionsApi/
         dotnet build
+        cd ../tests/Test
         dotnet test
 
     - name: Generate TypeSpec OpenAPI spec
