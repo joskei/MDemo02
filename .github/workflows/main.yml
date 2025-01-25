@@ -63,11 +63,12 @@ jobs:
     #  run: |        
     #    oasdiff changelog dotnet_openapi.yaml openapi.yaml       
 
+    #https://github.com/oasdiff/oasdiff-action
     - name: Running OpenAPI Spec diff action
-      uses: oasdiff/oasdiff-action/changelog@main
+      uses: oasdiff/oasdiff-action/breaking@main
       with:
-        base: dotnet_openapi.yaml
-        revision: openapi.yaml
+        base: openapi.yaml
+        revision: dotnet_openapi.yaml
         include-path-params: true
         composed: true
         output-to-file: diff.json
