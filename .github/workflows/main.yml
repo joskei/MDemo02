@@ -56,20 +56,9 @@ jobs:
     - name: Fetch .NET OpenAPI spec
       run: |
         # Assuming dotnet test saves the spec as dotnet_openapi.json
-        json2yaml tests/Test/dotnet_openapi.json > dotnet_openapi.yml        
+        json2yaml tests/Test/dotnet_openapi.json > dotnet_openapi.yaml        
 
     - name: Run oasdiff and save output
       id: run_diff
       run: |        
-        oasdiff diff openapi.yaml dotnet_openapi.yml
-        #openapi-diff openapi.yaml dotnet_openapi.yml --json diff_output.json --debug --error --log --info        
-
-    #- name: Check for breaking differences
-      #run: |
-      #  cat diff_output.json
-      #  if grep -q '"breakingDifferencesFound": false' diff_output.json; then
-      #    echo "No breaking differences found."
-      #  else
-      #    echo "Breaking differences found!" >&2
-      #    exit 1
-      #  fi
+        oasdiff changelog dotnet_openapi.yaml openapi.yaml       
