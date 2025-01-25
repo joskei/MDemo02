@@ -59,7 +59,7 @@ jobs:
       id: run_diff
       run: |
         ls
-        openapi-diff openapi.yaml dotnet_openapi.yml > diff_output.json
+        openapi-diff openapi.yaml dotnet_openapi.yml --json diff_output.json --debug --error
         cat diff_output.json
 
     - name: Check for breaking differences
