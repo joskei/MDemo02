@@ -58,7 +58,7 @@ jobs:
     - name: Run openapi-diff and save output
       id: run_diff
       run: |        
-        openapi-diff openapi.yaml dotnet_openapi.yml --trace --json diff_output.json --debug --error --log --info        
+        openapi-diff openapi.yaml dotnet_openapi.yml --json diff_output.json --debug --error --log --info        
 
     - name: Check for breaking differences
       run: |
