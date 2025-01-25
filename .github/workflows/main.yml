@@ -74,4 +74,4 @@ jobs:
 
     - name: See Report
       run: |
-        ls
+        cat diff.json
