@@ -71,3 +71,7 @@ jobs:
         include-path-params: true
         composed: true
         output-to-file: diff.json
+
+    - name: See Report
+      run: |
+        ls
