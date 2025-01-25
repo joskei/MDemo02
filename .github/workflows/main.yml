@@ -68,3 +68,6 @@ jobs:
       with:
         base: dotnet_openapi.yaml
         revision: openapi.yaml
+        include-path-params: true
+        composed: true
+        output-to-file: diff.json
