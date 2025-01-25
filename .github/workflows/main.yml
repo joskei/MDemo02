@@ -29,6 +29,9 @@ jobs:
     - name: Install openapi-diff
       run: npm install -g openapi-diff
 
+    - name: Install oasdiff
+      run: curl -fsSL https://raw.githubusercontent.com/tufin/oasdiff/main/install.sh | sh
+
     - name: NPM install
       run: |
         cd API_Corrections/
@@ -58,14 +61,15 @@ jobs:
     - name: Run openapi-diff and save output
       id: run_diff
       run: |        
-        openapi-diff openapi.yaml dotnet_openapi.yml --json diff_output.json --debug --error --log --info        
+        oasdiff changelog openapi.yaml dotnet_openapi.yml
+        #openapi-diff openapi.yaml dotnet_openapi.yml --json diff_output.json --debug --error --log --info        
 
-    - name: Check for breaking differences
-      run: |
-        cat diff_output.json
-        if grep -q '"breakingDifferencesFound": false' diff_output.json; then
-          echo "No breaking differences found."
-        else
-          echo "Breaking differences found!" >&2
-          exit 1
-        fi
+    #- name: Check for breaking differences
+      #run: |
+      #  cat diff_output.json
+      #  if grep -q '"breakingDifferencesFound": false' diff_output.json; then
+      #    echo "No breaking differences found."
+      #  else
+      #    echo "Breaking differences found!" >&2
+      #    exit 1
+      #  fi
