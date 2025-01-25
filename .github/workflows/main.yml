@@ -58,10 +58,10 @@ jobs:
         # Assuming dotnet test saves the spec as dotnet_openapi.json
         json2yaml tests/Test/dotnet_openapi.json > dotnet_openapi.yml        
 
-    - name: Run openapi-diff and save output
+    - name: Run oasdiff and save output
       id: run_diff
       run: |        
-        oasdiff changelog openapi.yaml dotnet_openapi.yml
+        oasdiff diff openapi.yaml dotnet_openapi.yml
         #openapi-diff openapi.yaml dotnet_openapi.yml --json diff_output.json --debug --error --log --info        
 
     #- name: Check for breaking differences
