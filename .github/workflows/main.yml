@@ -26,8 +26,8 @@ jobs:
     - name: Install json2yaml
       run: npm install -g json2yaml
 
-    - name: Install openapi-diff
-      run: npm install -g openapi-diff
+    #- name: Install openapi-diff
+    #  run: npm install -g openapi-diff
 
     - name: Install oasdiff
       run: curl -fsSL https://raw.githubusercontent.com/tufin/oasdiff/main/install.sh | sh
@@ -58,7 +58,13 @@ jobs:
         # Assuming dotnet test saves the spec as dotnet_openapi.json
         json2yaml tests/Test/dotnet_openapi.json > dotnet_openapi.yaml        
 
-    - name: Run oasdiff and save output
-      id: run_diff
-      run: |        
-        oasdiff changelog dotnet_openapi.yaml openapi.yaml       
+    #- name: Run oasdiff and save output
+    #  id: run_diff
+    #  run: |        
+    #    oasdiff changelog dotnet_openapi.yaml openapi.yaml       
+
+    - name: Running OpenAPI Spec diff action
+      uses: oasdiff/oasdiff-action/changelog@main
+      with:
+        base: dotnet_openapi.yaml
+        revision: openapi.yaml
